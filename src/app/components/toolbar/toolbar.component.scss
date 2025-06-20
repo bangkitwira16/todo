@@ -5,7 +5,8 @@
   margin-bottom: 32px;
 }
 
-nz-input-group, nz-input-group > input {
+nz-input-group,
+nz-input-group > input {
   background-color: #141932;
   color: #cacaca !important;
   border-color: #141932 !important;
@@ -32,12 +33,6 @@ nz-input-group, nz-input-group > input {
   border-color: #141932 !important;
 }
 
-.ant-select-multiple .ant-select-selection-item {
-  background-color: #141932;
-  color: #cacaca !important;
-  border-color: #141932 !important;
-}
-
 .select-with-icon {
   display: flex;
   align-items: center;
@@ -55,4 +50,18 @@ nz-input-group, nz-input-group > input {
   .toolbar-select {
     flex: 1;
   }
+}
+
+nz-select-item {
+  background-color: #141932;
+}
+
+:host ::ng-deep .ant-select-multiple .ant-select-selection-item {
+  background-color: #2c2c3a;
+  color: #cacaca !important;
+  border-color: #141932 !important;
+}
+
+:host ::ng-deep .ant-select-multiple .ant-select-selection-item-remove {
+  color: #cacaca !important;
 }

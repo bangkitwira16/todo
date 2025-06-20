@@ -90,7 +90,6 @@ export class TaskBoardComponent {
       );
     }
 
-    console.log(`✅ Moved: ${movedTask.title} => ${newStatus}`);
   }
   trackByTask(index: number, task: TaskUI) {
     return task.title + task.date; // or use a proper unique ID
@@ -112,7 +111,6 @@ export class TaskBoardComponent {
   }
 
   addNewTask() {
-    console.log('new task');
     this.isVisible.set(true);
   }
 

@@ -125,14 +125,7 @@ export class TaskListComponent {
       this.searchQuery,
       this.selectedDevelopers,
       this.selectedSort
-    );
-    console.log('this.tasks typeof', typeof this.tasks); // must be 'function'
-    console.log('this.searchQuery typeof', typeof this.searchQuery); // must be 'function'
-    console.log(
-      'this.selectedDevelopers typeof',
-      typeof this.selectedDevelopers
-    ); // must be 'function'
-    console.log('this.selectedSort typeof', typeof this.selectedSort); // must be 'function'
+    );    
   }
 
   toggleSelection(index: number) {

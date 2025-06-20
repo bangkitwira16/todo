@@ -1,0 +1,65 @@
+<div class="table-toolbar">
+  <button nz-button nzType="primary" (click)="addNewTask.emit()">
+    <i nz-icon nzType="plus"></i> New Task
+  </button>
+
+  <button
+    *ngIf="!isSearchVisible()"
+    nz-button
+    nzType="text"
+    (click)="toggleSearchField()"
+  >
+    <nz-icon nzType="search" /> Search
+  </button>
+
+  <nz-input-group *ngIf="isSearchVisible()" [nzSuffix]="suffixTemplateInfo">
+    <input
+      type="text"
+      nz-input
+      placeholder="Search Tasks..."
+      [ngModel]="searchQuery()"
+      (ngModelChange)="onSearchChange($event)"
+      nzBorderless
+    />
+  </nz-input-group>
+
+  <ng-template #suffixTemplateInfo>
+    <button nz-button nzType="text" (click)="toggleSearchField()">
+      <nz-icon nzType="close" />
+    </button>
+  </ng-template>
+
+  <app-avatar
+    [names]="developerOptions"
+    [selectedDevelopers]="selectedDevelopers()"
+    [isClickable]="true"
+    (nameClick)="onAvatarClick($event)"
+  />
+
+  <div class="select-with-icon">
+    <i
+      *ngIf="selectedSort().length === 0"
+      nz-icon
+      nzType="filter"
+      class="prefix-icon"
+    ></i>
+    <nz-select
+      [ngModel]="selectedSort()"
+      (ngModelChange)="onSortChange($event)"
+      nzPlaceHolder="Sort"
+      nzMode="multiple"
+      class="toolbar-select"
+    >
+      <ng-container *ngFor="let option of sortOptions">
+        <nz-option
+          [nzLabel]="option.label + ' ↑'"
+          [nzValue]="{ key: option.value, order: 'asc' }"
+        />
+        <nz-option
+          [nzLabel]="option.label + ' ↓'"
+          [nzValue]="{ key: option.value, order: 'desc' }"
+        />
+      </ng-container>
+    </nz-select>
+  </div>
+</div>

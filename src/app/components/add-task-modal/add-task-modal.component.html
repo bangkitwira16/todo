@@ -1,0 +1,85 @@
+<nz-modal
+  [nzVisible]="isVisible()"
+  nzTitle="Add New Task"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <div class="modal-body">
+      <div class="form-field">
+        <label>Title</label>
+        <input
+          nz-input
+          [(ngModel)]="form.title"
+          placeholder="Enter task title"
+        />
+      </div>
+
+      <div class="form-field">
+        <label>Developer</label>
+        <nz-select
+          nzMode="multiple"
+          [(ngModel)]="form.developerArray"
+          placeholder="Select developers"
+        >
+          <nz-option
+            *ngFor="let dev of developerOptions"
+            [nzLabel]="dev"
+            [nzValue]="dev"
+          ></nz-option>
+        </nz-select>
+      </div>
+
+      <div class="form-field">
+        <label>Status</label>
+        <nz-select [(ngModel)]="form.status">
+          <nz-option
+            *ngFor="let s of statusOptions"
+            [nzLabel]="s"
+            [nzValue]="s"
+          ></nz-option>
+        </nz-select>
+      </div>
+
+      <div class="form-field">
+        <label>Priority</label>
+        <nz-select [(ngModel)]="form.priority">
+          <nz-option
+            *ngFor="let p of priorityOptions"
+            [nzLabel]="p"
+            [nzValue]="p"
+          ></nz-option>
+        </nz-select>
+      </div>
+
+      <div class="form-field">
+        <label>Type</label>
+        <nz-select [(ngModel)]="form.type">
+          <nz-option
+            *ngFor="let t of typeOptions"
+            [nzLabel]="t"
+            [nzValue]="t"
+          ></nz-option>
+        </nz-select>
+      </div>
+
+      <div class="form-field">
+        <label>Date</label>
+        <nz-date-picker
+          [(ngModel)]="form.date"
+          nzFormat="dd MMM, yyyy"
+        ></nz-date-picker>
+      </div>
+
+      <div class="form-field">
+        <label>Estimated SP</label>
+        <input nz-input type="number" [(ngModel)]="form['Estimated SP']" />
+      </div>
+
+      <div class="form-field">
+        <label>Actual SP</label>
+        <input nz-input type="number" [(ngModel)]="form['Actual SP']" />
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

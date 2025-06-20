@@ -1,0 +1,58 @@
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+nz-input-group, nz-input-group > input {
+  background-color: #141932;
+  color: #cacaca !important;
+  border-color: #141932 !important;
+  max-width: 400px;
+}
+
+.ant-btn-text {
+  color: #cacaca !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.toolbar-select {
+  min-width: 200px;
+}
+
+:host
+  ::ng-deep
+  .ant-select:not(.ant-select-customize-input)
+  .ant-select-selector,
+.ant-select-arrow .anticon {
+  background-color: #141932;
+  color: #cacaca !important;
+  border-color: #141932 !important;
+}
+
+.ant-select-multiple .ant-select-selection-item {
+  background-color: #141932;
+  color: #cacaca !important;
+  border-color: #141932 !important;
+}
+
+.select-with-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 16px;
+
+  .prefix-icon {
+    font-size: 16px;
+    color: #cacaca;
+    position: absolute;
+    left: -8px;
+    z-index: 2;
+  }
+
+  .toolbar-select {
+    flex: 1;
+  }
+}

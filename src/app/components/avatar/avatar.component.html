@@ -1,0 +1,9 @@
+<ng-container *ngFor="let dev of names">
+  <nz-avatar
+    [nzText]="getInitials(dev)"
+    nzSize="small"
+    class="dev-avatar"
+    [ngClass]="{ clickable: isClickable, selected: isSelected(dev) }"
+    (click)="onNameClick(dev)"
+  ></nz-avatar>
+</ng-container>

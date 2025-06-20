@@ -1,0 +1,23 @@
+.form-field {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  nz-input,
+  nz-select,
+  nz-date-picker,
+  input {
+    width: 100%;
+  }
+}
+
+.modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}

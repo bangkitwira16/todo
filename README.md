@@ -33,15 +33,27 @@ A modern, scalable, and signal-powered Todo List application built with **Angula
 
 ## 📁 Project Structure
 
-src/
-├── app/
-│ ├── components/ # Task list, task item, kanban columns, etc.
-│ ├── constants/ # Central enums: status, priority, type
-│ ├── directives/ # Custom directives (e.g. focus, style helpers)
-│ ├── services/ # TaskService, FilterService, etc.
-│ ├── utils/ # Utility functions (sorting, formatting, etc.)
-│ ├── models/ # Interfaces for Task, Developer, etc.
-
+```
+todo/
+├── .vscode/ # VSCode config files
+├── public/ # Static public assets
+├── src/ # Main source code
+│ ├── app/ # Root Angular module
+│ │ ├── components/ # UI components like task list, board, toolbar, etc.
+│ │ ├── constants/ # App-wide constants (e.g., task status, priority, types)
+│ │ ├── directives/ # Custom directives (e.g., overflow control)
+│ │ ├── models/ # TypeScript interfaces and models
+│ │ ├── services/ # Services for data handling (e.g., TaskService)
+│ │ ├── utils/ # Utility functions or helpers
+│ │ ├── app.component.html # Root component template
+│ │ ├── app.component.scss # Root component styling
+│ └── main.ts # Angular application bootstrap
+├── angular.json # Angular workspace configuration
+├── package.json # Project metadata and dependencies
+├── README.md # Project documentation
+└── tsconfig.json # TypeScript configuration
+```
+---
 ## 🛠️ Getting Started
 
 ### Prerequisites
@@ -56,8 +68,8 @@ git clone https://github.com/bangkitwira16/todo.git
 cd todo
 npm install
 ng serve
-
-## 🔗 Live Demo
+```
+---
+### 🔗 Live Demo
 
 🚀 **Try it here:** [https://todo-boardlist.netlify.app](https://todo-boardlist.netlify.app)
-```

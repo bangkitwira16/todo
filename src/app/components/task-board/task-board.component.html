@@ -1,0 +1,51 @@
+<app-toolbar
+  [searchQuery]="searchQuery"
+  [selectedDevelopers]="selectedDevelopers"
+  [selectedSort]="selectedSort"
+  [developerOptions]="developerOptions"
+  [sortOptions]="sortOptions"
+  (addNewTask)="addNewTask()"
+  (toggleSearch)="toggleSearch()"
+  (nameClick)="onNameClick($event)"
+></app-toolbar>
+<app-add-task-modal
+  [isVisible]="isVisible"
+  [taskToEdit]="taskBeingEdited()"
+  (clickOk)="onClickOk($event)"
+></app-add-task-modal>
+<div class="kanban-board">
+  <div
+    class="kanban-column"
+    *ngFor="let column of statusOptions"
+    [id]="'column-' + column"
+    cdkDropList
+    [cdkDropListConnectedTo]="connectedDropLists"
+    [cdkDropListData]="groupedTasks()[column]"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div class="kanban-header" [style.backgroundColor]="getStatusColor(column)">
+      {{ column }} <span>{{ groupedTasks()[column].length || 0 }}</span>
+    </div>
+
+    <div
+      *ngFor="let task of groupedTasks()[column]; trackBy: trackByTask"
+      cdkDrag
+      class="kanban-task"
+      (click)="editTask(task)"
+    >
+      <div class="task-title">{{ task.title }}</div>
+      <div class="task-meta">
+        <nz-tag [nzColor]="getPriorityColor(task.priority)">
+          {{ task.priority }}
+        </nz-tag>
+        <nz-tag [nzColor]="getTypeColor(task.type)">
+          {{ task.priority }}
+        </nz-tag>
+      </div>
+      <div class="task-footer">
+        <span class="est-sp">{{ task["Estimated SP"] }} SP</span>
+        <app-avatar [names]="task.developerArray"></app-avatar>
+      </div>
+    </div>
+  </div>
+</div>

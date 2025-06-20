@@ -1,0 +1,66 @@
+:host ::ng-deep .ant-tabs-tab-btn {
+  color: #ffffff;
+}
+
+:host ::ng-deep .ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before {
+  border-bottom-color: #3d3f5b !important;
+}
+
+:host ::ng-deep .ant-table {
+  background-color: #2d324b;
+  color: #cacaca;
+  border: 1px solid #3d3f5b;
+
+  .ant-table-thead > tr > th {
+    background-color: #2d324b;
+    color: #cacaca;
+    border-color: #3d3f5b;
+    padding-left: 10px;
+    border-right-color: #3d3f5b !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    background-color: #2d324b;
+    padding-left: 10px;
+    color: #cacaca;
+    border-color: #3d3f5b;
+    border-right-color: #3d3f5b !important;
+  }
+
+  .ant-table-tbody > tr:hover > td {
+    background-color: #3a3f5c; // optional hover style
+    padding-left: 10px;
+  }
+  tfoot > tr > td {
+    border-right-color: #3d3f5b !important;
+  }
+  .ant-table-container {
+    border-left-color: #3d3f5b !important;
+  }
+  table {
+    border-top: #3d3f5b !important;
+  }
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker,
+  .ant-picker-suffix,
+  .ant-picker-input > input,
+  .ant-select-arrow .anticon,
+  .ant-select-selection-item {
+    background-color: #141932 !important;
+    color: #cacaca !important;
+    border-color: #141932 !important;
+  }
+  .ant-input-affix-wrapper {
+    background-color: #141932 !important;
+  }
+
+  padding-left: 10px;
+  .ant-select,
+  .ant-input {
+    width: 100% !important;
+  }
+}

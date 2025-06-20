@@ -1,0 +1,17 @@
+<nz-tabset>
+  <nz-tab [nzTitle]="homeTitle">
+    <ng-template #homeTitle>
+      <nz-icon nzType="home" />
+      Main Home
+    </ng-template>
+    <app-task-list></app-task-list>
+  </nz-tab>
+
+  <nz-tab [nzTitle]="kanbanTitle">
+    <ng-template #kanbanTitle>
+      <nz-icon nzType="file" />
+      Kanban
+    </ng-template>
+    <app-task-board></app-task-board>
+  </nz-tab>
+</nz-tabset>

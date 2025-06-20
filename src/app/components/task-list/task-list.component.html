@@ -1,0 +1,289 @@
+<app-toolbar
+  [searchQuery]="searchQuery"
+  [selectedDevelopers]="selectedDevelopers"
+  [selectedSort]="selectedSort"
+  [developerOptions]="developerOptions"
+  [sortOptions]="sortOptions"
+  (addNewTask)="addNewTask()"
+  (toggleSearch)="toggleSearch()"
+  (nameClick)="onNameClick($event)"
+></app-toolbar>
+<nz-table
+  nzBordered
+  [nzData]="tasks()"
+  [nzScroll]="{ x: '1000px' }"
+  [nzShowPagination]="false"
+  nzSize="small"
+  class="todo-table"
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">
+        <label
+          nz-checkbox
+          [nzChecked]="selectedIndexes().size === tasks().length"
+          [nzIndeterminate]="
+            selectedIndexes().size > 0 &&
+            selectedIndexes().size < tasks().length
+          "
+          (nzCheckedChange)="toggleSelectAll($event)"
+        >
+        </label>
+      </th>
+      <th nzWidth="250px">Task</th>
+      <th nzWidth="105px">Developer</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Type</th>
+      <th nzWidth="125px">Date</th>
+      <th nzWidth="100px">Estimated SP</th>
+      <th nzWidth="100px">Actual SP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      #editRow
+      *ngFor="let task of filteredTasks(); let i = index"
+      (dblclick)="startEdit(i)"
+    >
+      <td>
+        <label
+          nz-checkbox
+          [nzChecked]="isSelected(i)"
+          (nzCheckedChange)="toggleSelection(i)"
+        >
+        </label>
+      </td>
+      <td>
+        <ng-container *ngIf="isEditing(i); else viewTask">
+          <input
+            nz-input
+            [(ngModel)]="task['title']"
+            (blur)="saveField(i, 'title', task['title']); stopEdit()"
+          />
+        </ng-container>
+        <ng-template #viewTask>
+          <span class="ellipsis" appOverflowDetect #overflow="overflowDetect">
+            <ng-container *ngIf="overflow.isOverflowing(); else plain">
+              <span nz-tooltip="{{ task.title }}">
+                {{ task.title }}
+              </span>
+            </ng-container>
+            <ng-template #plain>
+              {{ task.title }}
+            </ng-template>
+          </span>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="isEditing(i); else viewDev">
+          <nz-select
+            nzMode="multiple"
+            [(ngModel)]="task.developerArray"
+            (ngModelChange)="saveField(i, 'developer', $event)"
+          >
+            @for (item of developerOptions; track item) {
+            <nz-option
+              [nzLabel]="item ?? ''"
+              [nzValue]="item ?? ''"
+            ></nz-option>
+            }
+          </nz-select>
+        </ng-container>
+        <ng-template #viewDev>
+          <app-avatar [names]="task.developerArray"></app-avatar>
+        </ng-template>
+      </td>
+      <td
+        [ngStyle]="{
+          backgroundColor: getStatusColor(task.status),
+          color: '#FFFFFF',
+          textAlign: 'center'
+        }"
+      >
+        <ng-container *ngIf="isEditing(i); else readStatus">
+          <nz-select
+            [(ngModel)]="task.status"
+            (ngModelChange)="saveField(i, 'status', $event)"
+          >
+            @for (item of statusOptions; track item) {
+            <nz-option
+              [nzLabel]="item ?? ''"
+              [nzValue]="item ?? ''"
+            ></nz-option>
+            }
+          </nz-select>
+        </ng-container>
+        <ng-template #readStatus>
+          {{ task.status }}
+        </ng-template>
+      </td>
+      <td
+        [ngStyle]="{
+          backgroundColor: getPriorityColor(task.priority),
+          color: '#FFFFFF',
+          textAlign: 'center'
+        }"
+      >
+        <ng-container *ngIf="isEditing(i); else readPriority">
+          <nz-select
+            [(ngModel)]="task.priority"
+            (ngModelChange)="saveField(i, 'priority', $event)"
+          >
+            @for (item of priorityOptions; track item) {
+            <nz-option
+              [nzLabel]="item ?? ''"
+              [nzValue]="item ?? ''"
+            ></nz-option>
+            }
+          </nz-select>
+        </ng-container>
+        <ng-template #readPriority>
+          {{ task.priority }}
+        </ng-template>
+      </td>
+      <td
+        [ngStyle]="{
+          backgroundColor: getTypeColor(task.type),
+          color: '#FFFFFF',
+          textAlign: 'center'
+        }"
+      >
+        <ng-container *ngIf="isEditing(i); else readType">
+          <nz-select
+            [(ngModel)]="task.type"
+            (ngModelChange)="saveField(i, 'type', $event)"
+          >
+            @for (item of typeOptions; track item) {
+            <nz-option
+              [nzLabel]="item ?? ''"
+              [nzValue]="item ?? ''"
+            ></nz-option>
+            }
+          </nz-select>
+        </ng-container>
+        <ng-template #readType>
+          <span>{{ task.type }}</span>
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="isEditing(i); else dateRead">
+          <nz-date-picker
+            [ngModel]="task.date"
+            (ngModelChange)="saveField(i, 'date', $event)"
+            nzFormat="dd MMM, yyyy"
+          >
+          </nz-date-picker>
+        </ng-container>
+        <ng-template #dateRead>
+          {{ task.date | date : "dd MMM, yyyy" }}
+        </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="isEditing(i); else spRead">
+          <input
+            nz-input
+            type="number"
+            [ngModel]="task['Estimated SP']"
+            (ngModelChange)="saveField(i, 'Estimated SP', $event)"
+          />
+        </ng-container>
+        <ng-template #spRead> {{ task["Estimated SP"] }} SP </ng-template>
+      </td>
+      <td>
+        <ng-container *ngIf="isEditing(i); else acRead">
+          <input
+            nz-input
+            type="number"
+            [ngModel]="task['Actual SP']"
+            (ngModelChange)="saveField(i, 'Actual SP', $event)"
+          />
+        </ng-container>
+        <ng-template #acRead> {{ task["Actual SP"] }} SP </ng-template>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3"></td>
+      <!-- Summary bar per kolom -->
+      <td>
+        <div class="summary-bar">
+          <div
+            *ngFor="let s of statusSummary()"
+            class="summary-block"
+            [ngStyle]="{
+              width: s.percent + '%',
+              backgroundColor: getStatusColor(s.key)
+            }"
+            [title]="s.key + ' (' + s.percent + '%)'"
+          ></div>
+        </div>
+      </td>
+      <td>
+        <div class="summary-bar">
+          <div
+            *ngFor="let s of prioritySummary()"
+            class="summary-block"
+            [ngStyle]="{
+              width: s.percent + '%',
+              backgroundColor: getPriorityColor(s.key)
+            }"
+            [title]="s.key + ' (' + s.percent + '%)'"
+          ></div>
+        </div>
+      </td>
+      <td>
+        <div class="summary-bar">
+          <div
+            *ngFor="let s of typeSummary()"
+            class="summary-block"
+            [ngStyle]="{
+              width: s.percent + '%',
+              backgroundColor: getTypeColor(s.key)
+            }"
+            [title]="s.key + ' (' + s.percent + '%)'"
+          ></div>
+        </div>
+      </td>
+      <td colspan="1"></td>
+      <td>{{ totalEstimatedSP() }} SP</td>
+      <td>{{ totalActualSP() }} SP</td>
+    </tr>
+  </tfoot>
+</nz-table>
+
+<!-- <div class="summary-section">
+  <div class="summary-group">
+    <strong>Status:</strong>
+    <nz-tag
+      *ngFor="let s of statusSummary()"
+      [nzColor]="s.color"
+      class="summary-tag"
+    >
+      {{ s.key }} - {{ s.percent }}%
+    </nz-tag>
+  </div>
+
+  <div class="summary-group">
+    <strong>Priority:</strong>
+    <nz-tag
+      *ngFor="let p of prioritySummary()"
+      [nzColor]="p.color"
+      class="summary-tag"
+    >
+      {{ p.key }} - {{ p.percent }}%
+    </nz-tag>
+  </div>
+
+  <div class="summary-group">
+    <strong>Type:</strong>
+    <nz-tag
+      *ngFor="let t of typeSummary()"
+      [nzColor]="t.color"
+      class="summary-tag"
+    >
+      {{ t.key }} - {{ t.percent }}%
+    </nz-tag>
+  </div>
+</div> -->

@@ -1,0 +1,54 @@
+.todo-table {
+  background-color: #0f1121;
+  color: #cacaca;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .ant-table {
+    background: transparent;
+
+    padding-left: 10px;
+    thead {
+      tr {
+        background-color: #1a1c2c;
+        th {
+          color: #c4c6d4;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background-color: #1e2030;
+        td {
+          color: #f0f0f0;
+          border-bottom: 1px solid #2c2f40;
+        }
+
+        &:hover {
+          background-color: #2a2d40;
+        }
+      }
+    }
+  }
+}
+
+.summary-bar {
+  display: flex;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.summary-block {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block; // ensures inline text truncation works
+}

@@ -25,7 +25,7 @@ A modern, scalable, and signal-powered Todo List application built with **Angula
 | **NG-ZORRO**          | UI components (tables, datepickers, forms, modals, tags, badges, etc.) |
 | **CDK DragDrop**      | Drag and drop for Kanban task movement                                 |
 | **Services**          | Central logic for task CRUD and filter handling                        |
-| **Custom Directives** | Reusable behavior such as auto-focus, status coloring, etc.            |
+| **Custom Directives** | Reusable behavior such as overflow checking.            |
 | **Utils**             | Common logic helpers (sorting, formatting, percentage calc, etc.)      |
 | **Constants**         | Centralized enums or key definitions (status, priority, type, etc.)    |
 

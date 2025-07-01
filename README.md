@@ -6,7 +6,7 @@ A modern, scalable, and signal-powered Todo List application built with **Angula
 
 ## 🚀 Features
 
-- ✅ Create, edit, and delete todos
+- ✅ Create, edit todos
 - ✅ Track status, priority, and type
 - ✅ Filter tasks by developer, status, type, etc.
 - ✅ Inline editing with NG-ZORRO inputs, datepickers, and selects
